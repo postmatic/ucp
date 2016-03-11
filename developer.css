@@ -1,0 +1,24 @@
+.ucp-developer-dialog {
+	margin: 25px;
+}
+
+.ucp-developer-dialog .recommended-plugins td {
+	vertical-align: top;
+	padding-bottom: 10px;
+}
+
+.ucp-developer-active {
+	font-weight: bold;
+	color: green;
+}
+
+.ucp-developer-notactive {
+	font-weight: bold;
+	color: maroon;
+}
+
+.ucp-developer-action-result.error {
+	color: red;
+	font-style: italic;
+	padding-left: 5px;
+}
