@@ -4,7 +4,7 @@
 
 Plugin Name:  Ultimate Comment Pack
 Plugin URI:   http://wordpress.org/extend/plugins/ultimate-comment-pack/
-Description:  A currated collection of best practices commenting plugins.
+Description:  A curated collection of best practices commenting plugins.
 Version:      1.2.6
 Author:       Postmatic
 Author URI:   http://gopostmatic.com
@@ -177,7 +177,7 @@ class Automattic_Developer {
 			'lightbox_title' => __( 'Ultimate Comment Pack', 'ucp-developer' ),
 			'saving'         => __( 'Saving...', 'ucp-developer' ),
 			'installing'     => '' . esc_html__( 'Installing...', 'ucp-developer' ),
-			'installed'      => __( 'Installed', 'ucp-developer' ),
+			'installed'      => __( 'Enabled', 'ucp-developer' ),
 			'activating'     => '' . esc_html__( 'Activating...', 'ucp-developer' ),
 			'activated'      => __( 'Activated', 'ucp-developer' ),
 			'error'          => __( 'Error!', 'ucp-developer' ),
@@ -305,7 +305,7 @@ class Automattic_Developer {
 
 				echo '<strong>' . esc_html__( 'Plugins', 'ucp-developer' ) . '</strong>';
 
-				echo '<p>' . esc_html__( 'Here is a currated list of commenting plugins that would work well for your site:', 'ucp-developer' ) . '</p>';
+				echo '<p>' . esc_html__( 'Here is a curated list of commenting plugins that would work well for your site:', 'ucp-developer' ) . '</p>';
 
 				echo '<table class="recommended-plugins">';
 
@@ -809,7 +809,7 @@ class Automattic_Developer {
 		return array(
 			'wporg'       => __( 'I\'m setting up a brand new WordPress site and need the best commenting setup available.', 'ucp-developer' ),
 			'small' => __( 'I run a small site with only a few comments per post, but hope to increase engagement.', 'ucp-developer' ),
-			'large'   => __( 'I run a large site with dozens of comments per post.', 'ucp-developer' ),
+			'large'   => __( 'I run a large site with dozens or hundreds of comments per post and need help managing them.', 'ucp-developer' ),
 		);
 	}
 
