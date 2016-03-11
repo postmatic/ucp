@@ -176,9 +176,9 @@ class Automattic_Developer {
 			'go_to_step_2'   => ( current_user_can( 'install_plugins' ) && current_user_can( 'activate_plugins' ) && 'direct' == get_filesystem_method() ) ? 'yes' : 'no',
 			'lightbox_title' => __( 'Ultimate Comment Pack', 'ucp-developer' ),
 			'saving'         => __( 'Saving...', 'ucp-developer' ),
-			'installing'     => '<img src="images/loading.gif" alt="" /> ' . esc_html__( 'Installing...', 'ucp-developer' ),
+			'installing'     => '' . esc_html__( 'Installing...', 'ucp-developer' ),
 			'installed'      => __( 'Installed', 'ucp-developer' ),
-			'activating'     => '<img src="images/loading.gif" alt="" /> ' . esc_html__( 'Activating...', 'ucp-developer' ),
+			'activating'     => '' . esc_html__( 'Activating...', 'ucp-developer' ),
 			'activated'      => __( 'Activated', 'ucp-developer' ),
 			'error'          => __( 'Error!', 'ucp-developer' ),
 			'ACTIVE'      	 => __( 'ACTIVE', 'ucp-developer' ),
@@ -325,6 +325,9 @@ class Automattic_Developer {
 						echo '<td><strong>' . $plugin_details['name'] . '</strong></td>';
 
 						echo '<td>';
+						
+						if ( ! empty( $plugin_details['short_description'] ) )
+								echo '<span class="description">' . esc_html__( $plugin_details['short_description'] ) . '</span>';
 
 						if ( $this->is_recommended_plugin_installed( $plugin_slug ) ) {
 							$path = $this->get_path_for_recommended_plugin( $plugin_slug );
@@ -334,15 +337,14 @@ class Automattic_Developer {
 							echo '<button type="button" class="ucp-developer-button-install" data-pluginslug="' . esc_attr( $plugin_slug ) . '" data-nonce="' . wp_create_nonce( 'ucp_developer_install_plugin_' . $plugin_slug ) . '">' . esc_html__( 'Install', 'ucp-developer' ) . '</button>';
 						}
 
-						if ( ! empty( $plugin_details['short_description'] ) )
-								echo '<br /><span class="description">' . esc_html__( $plugin_details['short_description'] ) . '</span>';
+					
 
 						echo '</td>';
 
 						echo '</tr>';
 					}
 
-				echo '<tr><td colspan="2"><button type="button" class="button button-primary ucp-developer-button-close">' . esc_html__( 'All set!', 'ucp-developer' ) . '</button></td></tr>';
+				echo '<tr><td colspan="2"><button type="button">' . esc_html__( 'All set!', 'ucp-developer' ) . '</button></td></tr>';
 
 				echo '</table>';
 
@@ -446,7 +448,7 @@ class Automattic_Developer {
 			$label = '<strong>' . esc_html( $plugin_details['name'] ) . '</strong>';
 
 			$label .= '<br /><a href="' . self_admin_url( 'plugin-install.php?tab=plugin-information&amp;plugin=' . $plugin_slug .
-								'&amp;TB_iframe=true&amp;width=600&amp;height=550' ) . '" class="thickbox" title="' .
+								'&amp;TB_iframe=true&amp;width=600&amp;height=750' ) . '" class="thickbox" title="' .
 								esc_attr( sprintf( __( 'More information about %s' ), $plugin_details['name'] ) ) . '">' . __( 'Details' ) . '</a>';
 
 			add_settings_field( 'ucp_developer_plugin_' . $plugin_slug, $label, array( $this, 'settings_field_plugin' ), self::PAGE_SLUG . '_status', 'ucp_developer_plugins', $plugin_details );
