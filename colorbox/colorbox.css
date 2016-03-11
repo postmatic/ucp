@@ -18,13 +18,13 @@
     Change the following styles to modify the appearance of ColorBox.  They are
     ordered & tabbed in a way that represents the nesting of the generated HTML.
 */
-#cboxOverlay{background:#B5E2FA; opacity: 1.0 !important;}
+#cboxOverlay{background:#0FA3B1; opacity: 1.0 !important;}
 #colorbox{padding-top: 80px !important;}
     #cboxContent{margin-top:90px;}
         .cboxIframe{background:#fff;}
         #cboxError{padding:50px; border:1px solid #ccc;}
         #cboxLoadedContent{border:3px solid #A0CAE1; background:#fff;}
-        #cboxTitle{position:absolute; top:-90px; left:0; color:#B5E2FA; background: url(images/header.png) top center no-repeat; width: 650px; height:114px; background-size: 640px; padding-top:65px; text-align: right;}
+        #cboxTitle{position:absolute; top:-90px; left:0; color:#0FA3B1; background: url(images/header.png) top center no-repeat; width: 650px; height:114px; background-size: 640px; padding-top:65px; text-align: right;}
         #cboxCurrent{position:absolute; top:-20px; right:0px; color:#ccc;}
         #cboxSlideshow{position:absolute; top:-20px; right:90px; color:#fff;}
         #cboxPrevious{position:absolute; top:50%; left:5px; margin-top:-32px; background:url(images/controls.png) no-repeat top left; width:28px; height:65px; text-indent:-9999px;}
@@ -78,7 +78,7 @@
               text-decoration: none;
 }
         #cboxContent strong {
-            color: #F7A072;
+            color: #0FA3B1;
             font-size: 120%;
             font-weight: normal;
         }

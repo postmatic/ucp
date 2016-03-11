@@ -344,7 +344,7 @@ class Automattic_Developer {
 						echo '</tr>';
 					}
 
-				echo '<tr><td colspan="2"><button type="button">' . esc_html__( 'All set!', 'ucp-developer' ) . '</button></td></tr>';
+				echo '<tr><td colspan="2"><button type="button" class="ucp-developer-button-close">' . esc_html__( 'All set!', 'ucp-developer' ) . '</button></td></tr>';
 
 				echo '</table>';
 
