@@ -5,7 +5,7 @@ function ucp_developer_lightbox() {
 				inline: true,
 				href: href,
 				title: ucp_developer_i18n.lightbox_title,
-				innerWidth: 650,
+				innerWidth: '90%',
 				maxHeight: '100%',
 				transition: transition
 			});

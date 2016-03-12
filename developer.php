@@ -93,20 +93,20 @@ class Automattic_Developer {
 				'name'         => esc_html__( 'Akismet - The standard for anti-spam', 'ucp-developer' ),
 				'active'       => class_exists( 'Akismet' ),
 			),
-			'rewrite-rules-inspector' => array(
+			'basic-comment-quicktags' => array(
 				'project_type' 	=> 'all',
-				'name' 		=> esc_html__( 'Rewrite Rules Inspector', 'ucp-developer' ),
-				'active'	=> class_exists( 'Rewrite_Rules_Inspector' ),
+				'name' 		=> esc_html__( 'Basic Comment Quicktags - Add minimal bold/italic/link buttons to your comment form.', 'ucp-developer' ),
+				'active'	=> function_exists( 'BasicCommentsQuicktagsHELF' ),
 			),
-			'log-deprecated-notices' => array(
+			'show-comment-policy' => array(
 				'project_type' => 'all',
-				'name'         => esc_html__( 'Log Deprecated Notices', 'ucp-developer' ),
-				'active'       => class_exists( 'Deprecated_Log' ),
+				'name'         => esc_html__( 'Show Comment Policy - Set behavioural expectations before users leave a comment.', 'ucp-developer' ),
+				'active'       => class_exists( 'show-comment-policy' ),
 			),
-			'log-viewer' => array(
+			'goodbye-captcha' => array(
 				'project_type' => 'all',
-				'name'         => esc_html__( 'Log Viewer', 'ucp-developer' ),
-				'active'       => class_exists( 'ciLogViewer' ),
+				'name'         => esc_html__( 'WPBruiser - Front-end antispam plugin that keeps bots from submitting the comment form.', 'ucp-developer' ),
+				'active'       => class_exists( 'goodbye-captcha' ),
 			),
 			'crowd-control' => array(
 				'project_type' => 'large',
@@ -177,9 +177,9 @@ class Automattic_Developer {
 			'lightbox_title' => __( 'Ultimate Comment Pack', 'ucp-developer' ),
 			'saving'         => __( 'Saving...', 'ucp-developer' ),
 			'installing'     => '' . esc_html__( 'Installing...', 'ucp-developer' ),
-			'installed'      => __( 'Enabled', 'ucp-developer' ),
+			'installed'      => __( '&#10003; Activated', 'ucp-developer' ),
 			'activating'     => '' . esc_html__( 'Activating...', 'ucp-developer' ),
-			'activated'      => __( 'Activated', 'ucp-developer' ),
+			'activated'      => __( '&#10003; Activated', 'ucp-developer' ),
 			'error'          => __( 'Error!', 'ucp-developer' ),
 			'ACTIVE'      	 => __( 'ACTIVE', 'ucp-developer' ),
 			'INSTALLED'      => __( 'INSTALLED', 'ucp-developer' ),
@@ -246,7 +246,7 @@ class Automattic_Developer {
 
 		<div style="display:none">
 			<div id="ucp-developer-setup-dialog-step-1" class="ucp-developer-dialog">
-				<strong><?php esc_html_e( "Tell us a little bit about your site. We'll recommend the best commenting plugins for your community.", 'ucp-developer' ); ?></strong>
+				<strong><?php esc_html_e( "Tell us a little bit about your site. We'll recommend the best free commenting plugins for your community.", 'ucp-developer' ); ?></strong>
 
 				<p><?php esc_html_e( 'What best describes the kinds of commenting you hope to achieve?', 'ucp-developer' ); ?></p>
 
