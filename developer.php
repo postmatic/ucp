@@ -30,7 +30,6 @@ class Automattic_Developer {
 	const PAGE_SLUG                = 'ucp_developer';
 
 	private $recommended_plugins   = array();
-	private $recommended_constants = array();
 
 	function __construct() {
 		add_action( 'init', 									array( $this, 'load_plugin_textdomain') );
@@ -454,37 +453,6 @@ class Automattic_Developer {
 			add_settings_field( 'ucp_developer_plugin_' . $plugin_slug, $label, array( $this, 'settings_field_plugin' ), self::PAGE_SLUG . '_status', 'ucp_developer_plugins', $plugin_details );
 		}
 
-		// Constants
-		add_settings_section( 'ucp_developer_constants', esc_html__( 'Constants', 'ucp-developer' ), array( $this, 'settings_section_constants' ), self::PAGE_SLUG . '_status' );
-
-		$recommended_constants = $this->get_recommended_constants();
-
-		foreach ( $recommended_constants as $constant => $constant_details ) {
-			add_settings_field( 'ucp_developer_constant_' . $constant, $constant, array( $this, 'settings_field_constant' ), self::PAGE_SLUG . '_status', 'ucp_developer_constants', array(
-				'constant'    => $constant,
-				'description' => $constant_details['description'],
-			) );
-		}
-
-		// Settings
-		add_settings_section( 'ucp_developer_settings', esc_html__( 'Settings', 'ucp-developer' ), array( $this, 'settings_section_settings' ), self::PAGE_SLUG . '_status' );
-		add_settings_field( 'ucp_developer_setting_permalink_structure', esc_html__( 'Pretty Permalinks', 'ucp-developer' ), array( $this, 'settings_field_setting_permalink_structure' ), self::PAGE_SLUG . '_status', 'ucp_developer_settings' );
-		if ( 'large' == $this->settings['project_type'] ) {
-			add_settings_field( 'ucp_developer_setting_development_version', esc_html__( 'Development Version', 'ucp-developer' ), array( $this, 'settings_field_setting_development_version' ), self::PAGE_SLUG . '_status', 'ucp_developer_settings' );
-			add_settings_field( 'ucp_developer_setting_shared_plugins', esc_html__( 'Shared Plugins', 'ucp-developer' ), array( $this, 'settings_field_setting_shared_plugins' ), self::PAGE_SLUG . '_status', 'ucp_developer_settings' );
-		}
-
-		// Resources
-		add_settings_section( 'ucp_developer_resources', esc_html__( 'Resources', 'ucp-developer' ), array( $this, 'settings_section_resources' ), self::PAGE_SLUG . '_status' );
-
-		add_settings_field( 'ucp_developer_setting_codex', esc_html__( 'Codex', 'ucp-developer' ), array( $this, 'settings_field_setting_resource_codex' ), self::PAGE_SLUG . '_status', 'ucp_developer_resources' );
-
-		if ( 'large' == $this->settings['project_type'] )
-			add_settings_field( 'ucp_developer_setting_vip_docs', esc_html__( 'VIP Docs', 'ucp-developer' ), array( $this, 'settings_field_setting_resource_vip_docs' ), self::PAGE_SLUG . '_status', 'ucp_developer_resources' );
-
-		if ( in_array( $this->settings['project_type'], array( 'small', 'large' ) ) )
-			add_settings_field( 'ucp_developer_setting_starter_themes', esc_html__( 'Starter Themes', 'ucp-developer' ), array( $this, 'settings_field_setting_resource_starter_themes' ), self::PAGE_SLUG . '_status', 'ucp_developer_resources' );
-
 		# Add more sections and fields here as needed
 ?>
 
@@ -565,64 +533,6 @@ class Automattic_Developer {
 
 		if ( ! empty( $args['short_description'] ) )
 			echo '<br /><span class="description">' . $args['short_description']  . '</span>';
-	}
-
-	public function settings_section_constants() {
-		echo '<p>' . __( 'We recommend you set the following constants to <code>true</code> in your <code>wp-config.php</code> file. <a href="http://codex.wordpress.org/Editing_wp-config.php" target="_blank">Need help?</a>', 'ucp-developer' ) . '</p>';
-	}
-
-	public function settings_field_constant( $args ) {
-		if ( defined( $args['constant'] ) && constant( $args['constant'] ) ) {
-			echo '<span class="ucp-developer-active">' . esc_html__( 'SET', 'ucp-developer' ) . '</span>';
-		} else {
-			echo '<span class="ucp-developer-notactive">' . esc_html__( 'NOT SET', 'ucp-developer' ) . '</span>';
-		}
-
-		if ( ! empty( $args['description'] ) )
-			echo '<br /><span class="description">' . $args['description'] . '</span>';
-	}
-
-
-	public function settings_section_settings() {
-		echo '<p>' . esc_html__( 'We recommend the following settings and configurations.', 'ucp-developer' ) . '</p>';
-	}
-
-	public function settings_field_setting_permalink_structure() {
-		if ( get_option( 'permalink_structure' ) ) {
-			echo '<span class="ucp-developer-active">' . esc_html__( 'ENABLED', 'ucp-developer' ) . '</span>';
-		} else {
-			echo '<a class="ucp-developer-notactive" href="' . admin_url( 'options-permalink.php' ) . '">' . esc_html__( 'DISABLED', 'ucp-developer' ) . '</a> ' . __( '<a href="http://codex.wordpress.org/Using_Permalinks" target="_blank">Need help?</a>', 'ucp-developer' );
-		}
-	}
-
-	public function settings_field_setting_development_version() {
-		if ( self::is_dev_version() ) {
-			echo '<span class="ucp-developer-active">' . esc_html__( 'ENABLED', 'ucp-developer' ) . '</span>';
-		} else {
-			echo '<a href="'. network_admin_url( 'update-core.php' ) .'" class="ucp-developer-notactive">' . esc_html__( 'DISABLED', 'ucp-developer' ) . '</a>';
-		}
-	}
-
-	public function settings_field_setting_shared_plugins() {
-		if ( file_exists( WP_CONTENT_DIR . '/themes/vip' ) && file_exists( WP_CONTENT_DIR . '/themes/vip/plugins' ) ) {
-			echo '<span class="ucp-developer-active">' . esc_html__( 'ENABLED', 'ucp-developer' ) . '</span>';
-		} else {
-			echo '<a href="http://vip.wordpress.com/documentation/development-environment/#plugins-and-helper-functions" class="ucp-developer-notactive">' . esc_html__( 'DISABLED', 'ucp-developer' ) . '</a>';
-		}
-	}
-
-	public function settings_section_resources() {}
-
-	public function settings_field_setting_resource_codex() {
-		_e( "The <a href='http://codex.wordpress.org/Developer_Documentation'>Developer Documentation section</a> of the Codex offers guidelines and references for anyone wishing to modify, extend, or contribute to WordPress.", 'ucp-developer' );
-	}
-
-	public function settings_field_setting_resource_vip_docs() {
-		_e( "The <a href='http://vip.wordpress.com/documentation/'>VIP Documentation</a> is a technical resource for developing sites on WordPress.com including best practices and helpful tips to help you code better, faster, and stronger.", 'ucp-developer' );
-	}
-
-	public function settings_field_setting_resource_starter_themes() {
-		_e( "<a href='http://underscores.me'>_s (or underscores)</a>: a starter theme meant for hacking that will give you a \"1000-Hour Head Start\". Use it to create the next, most awesome WordPress theme out there.", 'ucp-developer' );
 	}
 
 	public function settings_validate( $raw_settings ) {
@@ -750,59 +660,6 @@ class Automattic_Developer {
 			return true;
 
 		return self::is_project_type( $plugin_details, $project_type );
-	}
-
-	/**
-	 * Return an array of all constants recommended for the current project type
-	 *
-	 * Only returns constants that have been recommended for the project type defined
-	 * in $this->settings['project_type']
-	 *
-	 * @return array An array of constants recommended for the current project type
-	 */
-	public function get_recommended_constants() {
-		return $this->get_recommended_constants_by_type( $this->settings['project_type'] );
-	}
-
-	/**
-	 * Return an array of all constants recommended for the given project type
-	 *
-	 * @param  string $type The project type to return constants for
-	 * @return array An associative array of constants for the project type
-	 */
-	public function get_recommended_constants_by_type( $type ) {
-		$constants_by_type = array();
-
-		foreach( $this->recommended_constants as $constant => $constant_details ) {
-			if ( ! $this->constant_is_recommended_for_project_type( $constant, $type ) )
-				continue;
-
-			$constants_by_type[ $constant ] = $constant_details;
-		}
-
-		return $constants_by_type;
-	}
-
-	/**
-	 * Should the given constant be recommended for the given project type?
-	 *
-	 * Determines whether or not a given $constant is recommended for a given $project_type
-	 * by checking the project types defined for it
-	 *
-	 * @param  string $constant The constant to check
-	 * @param  string $project_type The project type to check the constant against
-	 * @return bool Boolean indicating if the constant is recommended for the project type
-	 */
-	public function constant_is_recommended_for_project_type( $constant, $project_type = null ) {
-		if ( null == $project_type )
-			$project_type = $this->settings['project_type'];
-
-		$constant_details = $this->recommended_constants[ $constant ];
-
-		if ( 'all' == $constant_details['project_type'] )
-			return true;
-
-		return self::is_project_type( $constant_details, $project_type );
 	}
 
 	public function get_project_types() {
