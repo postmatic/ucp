@@ -206,7 +206,7 @@ class Automattic_Developer {
 	}
 
 	public function register_settings_page() {
-		add_management_page( esc_html__( 'Ultimate Comment Pack', 'ucp-developer' ), esc_html__( 'Ultimate Comment Pack', 'ucp-developer' ), 'manage_options', self::PAGE_SLUG, array( $this, 'settings_page' ) );
+		add_submenu_page( 'options-general.php', esc_html__( 'Ultimate Comment Pack', 'ucp-developer' ), esc_html__( 'Ultimate Comment Pack', 'ucp-developer' ), 'manage_options', self::PAGE_SLUG, array( $this, 'settings_page' ) );
 	}
 
 	public function add_node_to_admin_bar( $wp_admin_bar ) {
